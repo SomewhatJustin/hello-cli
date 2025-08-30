@@ -30,17 +30,11 @@ async fn main() {
 }
 
 fn reverse_string(string: &str) -> String {
-    let mut reversed_string = String::new();
-    for c in string.chars().rev() {
-        reversed_string.push(c);
-    }
-    String::from(reversed_string)
+    string.chars().rev().collect()
 }
 
 async fn fetch_todo(url: &str) -> Result<Todo, reqwest::Error> {
     let body: String = reqwest::get(url).await?.text().await?;
-
-    println!("text is {body}");
 
     let deserialized: Todo = serde_json::from_str(&body).expect("Failed to deserialize");
 
